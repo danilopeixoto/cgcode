@@ -1,24 +1,24 @@
 // Evita redefinição de símbolos do arquivo de cabeçalho (caso já tenha sido incluído)
-#ifndef CG_GLOBAL_H
-#define CG_GLOBAL_H
+#ifndef CGC_GLOBAL_H
+#define CGC_GLOBAL_H
 
 #include <ostream>
 #include <cmath>
 
 // Constantes numéricas
-#define CG_E 2.71828182845904523536
-#define CG_PI 3.14159265358979323846
-#define CG_INV_PI 0.31830988618379067154
-#define CG_EPSILON 2.2204460492503131e-016
-#define CG_INFINITY 1.7976931348623158e+308
+#define CGC_E 2.71828182845904523536
+#define CGC_PI 3.14159265358979323846
+#define CGC_INV_PI 0.31830988618379067154
+#define CGC_EPSILON 2.2204460492503131e-016
+#define CGC_INFINITY 1.7976931348623158e+308
 
 // Converte ângulo de radiano para grau
 double degrees(double radians) {
-    return radians * 180.0 * CG_INV_PI;
+    return radians * 180.0 * CGC_INV_PI;
 }
 // Converte ângulo de grau para radiano
 double radians(double degrees) {
-    return degrees * CG_PI / 180.0;
+    return degrees * CGC_PI / 180.0;
 }
 
 // Vetor real bidimensional
@@ -121,7 +121,7 @@ public:
 	Vector2 & normalize() {
 		double l2 = length2();
 		
-		if (l2 > CG_EPSILON * CG_EPSILON)
+		if (l2 > CGC_EPSILON * CGC_EPSILON)
 			*this /= std::sqrt(l2);
 			
 		return *this;
@@ -240,7 +240,7 @@ public:
 	Vector3 & normalize() {
 		double l2 = length2();
 		
-		if (l2 > CG_EPSILON * CG_EPSILON)
+		if (l2 > CGC_EPSILON * CGC_EPSILON)
 			*this /= std::sqrt(l2);
 			
 		return *this;
