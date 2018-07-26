@@ -24,235 +24,235 @@ double radians(double degrees) {
 // Vetor real bidimensional
 class Vector2 {
 public:
-	// Componentes do vetor
-	double x, y;
-	
-	// Construtor padrão (vetor zero)
-	Vector2() : x(0), y(0) {}
-	// Construtor de valores iniciais
-	Vector2(double x, double y) : x(x), y(y) {}
-	
-	// Sobrecarga da operação "vetor[i]" (retorno mutável)
-	double & operator [](unsigned int i) {
-		return (&x)[i];
-	}
-	// Sobrecarga da operação "vetor[i]" (retornon imutável)
-	const double & operator [](unsigned int i) const {
-		return (&x)[i];
-	}
-	// Sobrecarga da operação "+vetor"
-	Vector2 operator +() const {
-		return *this;
-	}
-	// Sobrecarga da operação "-vetor"
-	Vector2 operator -() const {
-		return Vector2(-x, -y);
-	}
-	// Sobrecarga da operação "vetorA + vetorB"
-	Vector2 operator +(const Vector2 & rhs) const {
-		return Vector2(x + rhs.x, y + rhs.y);
-	}
-	// Sobrecarga da operação "vetorA - vetorB"
-	Vector2 operator -(const Vector2 & rhs) const {
-		return Vector2(x - rhs.x, y - rhs.y);
-	}
-	// Sobrecarga da operação "vetor * escalar"
-	Vector2 operator *(double rhs) const {
-		return Vector2(x * rhs, y * rhs);
-	}
-	// Sobrecarga da operação "escalar * vetor"
-	friend Vector2 operator *(double lhs, const Vector2 & rhs) {
-		return rhs * lhs;
-	}
-	// Sobrecarga da operação "vetor / escalar"
-	Vector2 operator /(double rhs) const {
-		return Vector2(x / rhs, y / rhs);
-	}
-	// Sobrecarga da operação "vetorA += vetorB"
-	Vector2 & operator +=(const Vector2 & rhs) {
-		x += rhs.x;
-		y += rhs.y;
-		
-		return *this;
-	}
-	// Sobrecarga da operação "vetorA -= vetorB"
-	Vector2 & operator -=(const Vector2 & rhs) {
-		x -= rhs.x;
-		y -= rhs.y;
-		
-		return *this;
-	}
-	// Sobrecarga da operação "vetorA *= escalar"
-	Vector2 & operator *=(double rhs) {
-		x *= rhs;
-		y *= rhs;
-		
-		return *this;
-	}
-	// Sobrecarga da operação "vetorA /= escalar"
-	Vector2 & operator /=(double rhs) {
-		x /= rhs;
-		y /= rhs;
-		
-		return *this;
-	}
-	// Sobrecarga da operação "vetorA == vetorB"
-	bool operator ==(const Vector2 & rhs) const {
-		return x == rhs.x && y == rhs.y;
-	}
-	// Sobrecarga da operação "vetorA != vetorB"
-	bool operator !=(const Vector2 & rhs) const {
-		return !(*this == rhs);
-	}
-	// Sobrecarga da operação "stream << vetor" (imprimir saída de dados)
-	friend std::ostream & operator <<(std::ostream & lhs, const Vector2 & rhs)  { 
-        return lhs << '(' << rhs.x << ' ' << rhs.y << ')'; 
+    // Componentes do vetor
+    double x, y;
+
+    // Construtor padrão (vetor zero)
+    Vector2() : x(0), y(0) {}
+    // Construtor de valores iniciais
+    Vector2(double x, double y) : x(x), y(y) {}
+
+    // Sobrecarga da operação "vetor[i]" (retorno mutável)
+    double & operator [](unsigned int i) {
+        return (&x)[i];
     }
-	
-	// Retorna produto escalar
-	double dot(const Vector2 & rhs) const {
-		return x * rhs.x + y * rhs.y;
-	}
-	// Retorna produto vetorial
-	double cross(const Vector2 & rhs) const {
-		return x * rhs.y - y * rhs.x;
-	}
-	// Normaliza vetor (vetor unitário)
-	Vector2 & normalize() {
-		double l2 = length2();
-		
-		if (l2 > CGC_EPSILON * CGC_EPSILON)
-			*this /= std::sqrt(l2);
-			
-		return *this;
-	}
-	// Retorna comprimento do vetor ao quadrado
-	double length2() const {
-		return dot(*this);
-	}
-	// Retorna comprimento do vetor
-	double length() const {
-		return std::sqrt(length2());
-	}
+    // Sobrecarga da operação "vetor[i]" (retornon imutável)
+    const double & operator [](unsigned int i) const {
+        return (&x)[i];
+    }
+    // Sobrecarga da operação "+vetor"
+    Vector2 operator +() const {
+        return *this;
+    }
+    // Sobrecarga da operação "-vetor"
+    Vector2 operator -() const {
+        return Vector2(-x, -y);
+    }
+    // Sobrecarga da operação "vetorA + vetorB"
+    Vector2 operator +(const Vector2 & rhs) const {
+        return Vector2(x + rhs.x, y + rhs.y);
+    }
+    // Sobrecarga da operação "vetorA - vetorB"
+    Vector2 operator -(const Vector2 & rhs) const {
+        return Vector2(x - rhs.x, y - rhs.y);
+    }
+    // Sobrecarga da operação "vetor * escalar"
+    Vector2 operator *(double rhs) const {
+        return Vector2(x * rhs, y * rhs);
+    }
+    // Sobrecarga da operação "escalar * vetor"
+    friend Vector2 operator *(double lhs, const Vector2 & rhs) {
+        return rhs * lhs;
+    }
+    // Sobrecarga da operação "vetor / escalar"
+    Vector2 operator /(double rhs) const {
+        return Vector2(x / rhs, y / rhs);
+    }
+    // Sobrecarga da operação "vetorA += vetorB"
+    Vector2 & operator +=(const Vector2 & rhs) {
+        x += rhs.x;
+        y += rhs.y;
+
+        return *this;
+    }
+    // Sobrecarga da operação "vetorA -= vetorB"
+    Vector2 & operator -=(const Vector2 & rhs) {
+        x -= rhs.x;
+        y -= rhs.y;
+
+        return *this;
+    }
+    // Sobrecarga da operação "vetorA *= escalar"
+    Vector2 & operator *=(double rhs) {
+        x *= rhs;
+        y *= rhs;
+
+        return *this;
+    }
+    // Sobrecarga da operação "vetorA /= escalar"
+    Vector2 & operator /=(double rhs) {
+        x /= rhs;
+        y /= rhs;
+
+        return *this;
+    }
+    // Sobrecarga da operação "vetorA == vetorB"
+    bool operator ==(const Vector2 & rhs) const {
+        return x == rhs.x && y == rhs.y;
+    }
+    // Sobrecarga da operação "vetorA != vetorB"
+    bool operator !=(const Vector2 & rhs) const {
+        return !(*this == rhs);
+    }
+    // Sobrecarga da operação "stream << vetor" (imprimir saída de dados)
+    friend std::ostream & operator <<(std::ostream & lhs, const Vector2 & rhs) {
+        return lhs << '(' << rhs.x << ' ' << rhs.y << ')';
+    }
+
+    // Retorna produto escalar
+    double dot(const Vector2 & rhs) const {
+        return x * rhs.x + y * rhs.y;
+    }
+    // Retorna produto vetorial
+    double cross(const Vector2 & rhs) const {
+        return x * rhs.y - y * rhs.x;
+    }
+    // Normaliza vetor (vetor unitário)
+    Vector2 & normalize() {
+        double l2 = length2();
+
+        if (l2 > CGC_EPSILON * CGC_EPSILON)
+            *this /= std::sqrt(l2);
+
+        return *this;
+    }
+    // Retorna comprimento do vetor ao quadrado
+    double length2() const {
+        return dot(*this);
+    }
+    // Retorna comprimento do vetor
+    double length() const {
+        return std::sqrt(length2());
+    }
 };
 
 // Vetor real tridimensional
 class Vector3 {
 public:
-	// Componentes do vetor
-	double x, y, z;
-	
-	// Construtor padrão (vetor zero)
-	Vector3() : x(0), y(0), z(0) {}
-	// Construtor de valores iniciais
-	Vector3(double x, double y, double z) : x(x), y(y), z(z) {}
-	
-	// Sobrecarga da operação "vetor[i]" (retorno mutável)
-	double & operator [](unsigned int i) {
-		return (&x)[i];
-	}
-	// Sobrecarga da operação "vetor[i]" (retornon imutável)
-	const double & operator [](unsigned int i) const {
-		return (&x)[i];
-	}
-	// Sobrecarga da operação "+vetor"
-	Vector3 operator +() const {
-		return *this;
-	}
-	// Sobrecarga da operação "-vetor"
-	Vector3 operator -() const {
-		return Vector3(-x, -y, -z);
-	}
-	// Sobrecarga da operação "vetorA + vetorB"
-	Vector3 operator +(const Vector3 & rhs) const {
-		return Vector3(x + rhs.x, y + rhs.y, z + rhs.z);
-	}
-	// Sobrecarga da operação "vetorA - vetorB"
-	Vector3 operator -(const Vector3 & rhs) const {
-		return Vector3(x - rhs.x, y - rhs.y, z - rhs.z);
-	}
-	// Sobrecarga da operação "vetor * escalar"
-	Vector3 operator *(double rhs) const {
-		return Vector3(x * rhs, y * rhs, z * rhs);
-	}
-	// Sobrecarga da operação "escalar * vetor"
-	friend Vector3 operator *(double lhs, const Vector3 & rhs) {
-		return rhs * lhs;
-	}
-	// Sobrecarga da operação "vetor / escalar"
-	Vector3 operator /(double rhs) const {
-		return Vector3(x / rhs, y / rhs, z / rhs);
-	}
-	// Sobrecarga da operação "vetorA += vetorB"
-	Vector3 & operator +=(const Vector3 & rhs) {
-		x += rhs.x;
-		y += rhs.y;
-		z += rhs.z;
-		
-		return *this;
-	}
-	// Sobrecarga da operação "vetorA -= vetorB"
-	Vector3 & operator -=(const Vector3 & rhs) {
-		x -= rhs.x;
-		y -= rhs.y;
-		z -= rhs.z;
-		
-		return *this;
-	}
-	// Sobrecarga da operação "vetorA *= escalar"
-	Vector3 & operator *=(double rhs) {
-		x *= rhs;
-		y *= rhs;
-		z *= rhs;
-		
-		return *this;
-	}
-	// Sobrecarga da operação "vetorA /= escalar"
-	Vector3 & operator /=(double rhs) {
-		x /= rhs;
-		y /= rhs;
-		z /= rhs;
-		
-		return *this;
-	}
-	// Sobrecarga da operação "vetorA == vetorB"
-	bool operator ==(const Vector3 & rhs) const {
-		return x == rhs.x && y == rhs.y && z == rhs.z;
-	}
-	// Sobrecarga da operação "vetorA != vetorB"
-	bool operator !=(const Vector3 & rhs) const {
-		return !(*this == rhs);
-	}
-	// Sobrecarga da operação "stream << vetor" (imprimir saída de dados)
-	friend std::ostream & operator <<(std::ostream & lhs, const Vector3 & rhs)  { 
-        return lhs << '(' << rhs.x << ' ' << rhs.y << ' ' << rhs.z << ')'; 
+    // Componentes do vetor
+    double x, y, z;
+
+    // Construtor padrão (vetor zero)
+    Vector3() : x(0), y(0), z(0) {}
+    // Construtor de valores iniciais
+    Vector3(double x, double y, double z) : x(x), y(y), z(z) {}
+
+    // Sobrecarga da operação "vetor[i]" (retorno mutável)
+    double & operator [](unsigned int i) {
+        return (&x)[i];
     }
-	
-	// Retorna produto escalar
-	double dot(const Vector3 & rhs) const {
-		return x * rhs.x + y * rhs.y + z * rhs.z;
-	}
-	// Retorna produto vetorial
-	Vector3 cross(const Vector3 & rhs) const {
-		return Vector3(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
-	}
-	// Normaliza vetor (vetor unitário)
-	Vector3 & normalize() {
-		double l2 = length2();
-		
-		if (l2 > CGC_EPSILON * CGC_EPSILON)
-			*this /= std::sqrt(l2);
-			
-		return *this;
-	}
-	// Retorna comprimento do vetor ao quadrado
-	double length2() const {
-		return dot(*this);
-	}
-	// Retorna comprimento do vetor
-	double length() const {
-		return std::sqrt(length2());
-	}
+    // Sobrecarga da operação "vetor[i]" (retornon imutável)
+    const double & operator [](unsigned int i) const {
+        return (&x)[i];
+    }
+    // Sobrecarga da operação "+vetor"
+    Vector3 operator +() const {
+        return *this;
+    }
+    // Sobrecarga da operação "-vetor"
+    Vector3 operator -() const {
+        return Vector3(-x, -y, -z);
+    }
+    // Sobrecarga da operação "vetorA + vetorB"
+    Vector3 operator +(const Vector3 & rhs) const {
+        return Vector3(x + rhs.x, y + rhs.y, z + rhs.z);
+    }
+    // Sobrecarga da operação "vetorA - vetorB"
+    Vector3 operator -(const Vector3 & rhs) const {
+        return Vector3(x - rhs.x, y - rhs.y, z - rhs.z);
+    }
+    // Sobrecarga da operação "vetor * escalar"
+    Vector3 operator *(double rhs) const {
+        return Vector3(x * rhs, y * rhs, z * rhs);
+    }
+    // Sobrecarga da operação "escalar * vetor"
+    friend Vector3 operator *(double lhs, const Vector3 & rhs) {
+        return rhs * lhs;
+    }
+    // Sobrecarga da operação "vetor / escalar"
+    Vector3 operator /(double rhs) const {
+        return Vector3(x / rhs, y / rhs, z / rhs);
+    }
+    // Sobrecarga da operação "vetorA += vetorB"
+    Vector3 & operator +=(const Vector3 & rhs) {
+        x += rhs.x;
+        y += rhs.y;
+        z += rhs.z;
+
+        return *this;
+    }
+    // Sobrecarga da operação "vetorA -= vetorB"
+    Vector3 & operator -=(const Vector3 & rhs) {
+        x -= rhs.x;
+        y -= rhs.y;
+        z -= rhs.z;
+
+        return *this;
+    }
+    // Sobrecarga da operação "vetorA *= escalar"
+    Vector3 & operator *=(double rhs) {
+        x *= rhs;
+        y *= rhs;
+        z *= rhs;
+
+        return *this;
+    }
+    // Sobrecarga da operação "vetorA /= escalar"
+    Vector3 & operator /=(double rhs) {
+        x /= rhs;
+        y /= rhs;
+        z /= rhs;
+
+        return *this;
+    }
+    // Sobrecarga da operação "vetorA == vetorB"
+    bool operator ==(const Vector3 & rhs) const {
+        return x == rhs.x && y == rhs.y && z == rhs.z;
+    }
+    // Sobrecarga da operação "vetorA != vetorB"
+    bool operator !=(const Vector3 & rhs) const {
+        return !(*this == rhs);
+    }
+    // Sobrecarga da operação "stream << vetor" (imprimir saída de dados)
+    friend std::ostream & operator <<(std::ostream & lhs, const Vector3 & rhs) {
+        return lhs << '(' << rhs.x << ' ' << rhs.y << ' ' << rhs.z << ')';
+    }
+
+    // Retorna produto escalar
+    double dot(const Vector3 & rhs) const {
+        return x * rhs.x + y * rhs.y + z * rhs.z;
+    }
+    // Retorna produto vetorial
+    Vector3 cross(const Vector3 & rhs) const {
+        return Vector3(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
+    }
+    // Normaliza vetor (vetor unitário)
+    Vector3 & normalize() {
+        double l2 = length2();
+
+        if (l2 > CGC_EPSILON * CGC_EPSILON)
+            *this /= std::sqrt(l2);
+
+        return *this;
+    }
+    // Retorna comprimento do vetor ao quadrado
+    double length2() const {
+        return dot(*this);
+    }
+    // Retorna comprimento do vetor
+    double length() const {
+        return std::sqrt(length2());
+    }
 };
 
 #endif
