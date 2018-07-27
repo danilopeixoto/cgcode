@@ -4,6 +4,7 @@
 
 #include <ostream>
 #include <cmath>
+#include <stdexcept>
 
 // Constantes numéricas
 #define CGC_E 2.71828182845904523536
@@ -119,13 +120,18 @@ public:
     }
     // Normaliza vetor (vetor unitário)
     Vector2 & normalize() {
-        return *this /= length();
+        double l2 = length2();
+
+        if (l2 < CGC_EPSILON * CGC_EPSILON)
+            throw std::logic_error("Divide by zero exception");
+
+        return *this /= std::sqrt(l2);
     }
     // Normaliza vetor evitando divisão por zero (vetor unitário)
     Vector2 & safeNormalize() {
         double l2 = length2();
 
-        if (l2 > CGC_EPSILON * CGC_EPSILON)
+        if (l2 >= CGC_EPSILON * CGC_EPSILON)
             *this /= std::sqrt(l2);
 
         return *this;
@@ -242,13 +248,18 @@ public:
     }
     // Normaliza vetor (vetor unitário)
     Vector3 & normalize() {
-        return *this /= length();
+        double l2 = length2();
+
+        if (l2 < CGC_EPSILON * CGC_EPSILON)
+            throw std::logic_error("Divide by zero exception");
+
+        return *this /= std::sqrt(l2);
     }
     // Normaliza vetor evitando divisão por zero (vetor unitário)
     Vector3 & safeNormalize() {
         double l2 = length2();
 
-        if (l2 > CGC_EPSILON * CGC_EPSILON)
+        if (l2 >= CGC_EPSILON * CGC_EPSILON)
             *this /= std::sqrt(l2);
 
         return *this;
