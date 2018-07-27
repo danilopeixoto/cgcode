@@ -119,6 +119,10 @@ public:
     }
     // Normaliza vetor (vetor unitário)
     Vector2 & normalize() {
+        return *this /= length();
+    }
+    // Normaliza vetor evitando divisão por zero (vetor unitário)
+    Vector2 & safeNormalize() {
         double l2 = length2();
 
         if (l2 > CGC_EPSILON * CGC_EPSILON)
@@ -238,6 +242,10 @@ public:
     }
     // Normaliza vetor (vetor unitário)
     Vector3 & normalize() {
+        return *this /= length();
+    }
+    // Normaliza vetor evitando divisão por zero (vetor unitário)
+    Vector3 & safeNormalize() {
         double l2 = length2();
 
         if (l2 > CGC_EPSILON * CGC_EPSILON)
