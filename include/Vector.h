@@ -1,6 +1,6 @@
-// File:	Vector.h
-// Author:	Danilo Peixoto
-// Date:	02/08/2018
+// File:    Vector.h
+// Author:  Danilo Peixoto
+// Date:    02/08/2018
 
 // Evita redefinição de símbolos do arquivo de cabeçalho (caso já tenha sido incluído)
 #ifndef CGC_VECTOR_H

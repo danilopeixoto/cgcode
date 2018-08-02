@@ -1,6 +1,6 @@
-// File:	main.cpp
-// Author:	Danilo Peixoto
-// Date:	02/08/2018
+// File:    main.cpp
+// Author:  Danilo Peixoto
+// Date:    02/08/2018
 
 // Bibliotecas
 #include <iostream>
