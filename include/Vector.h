@@ -1,5 +1,5 @@
 // File:	Vector.h
-// Author	Danilo Peixoto
+// Author:	Danilo Peixoto
 // Date:	02/08/2018
 
 // Evita redefinição de símbolos do arquivo de cabeçalho (caso já tenha sido incluído)
