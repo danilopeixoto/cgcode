@@ -6,12 +6,6 @@
 #ifndef CGC_GLOBAL_H
 #define CGC_GLOBAL_H
 
-// Bibliotecas
-#include <ostream>
-#include <cmath>
-#include <Vector.h>
-#include <Matrix.h>
-
 // Constantes numéricas
 #define CGC_E 2.71828182845904523536
 #define CGC_PI 3.14159265358979323846
@@ -20,12 +14,10 @@
 #define CGC_INFINITY 1.7976931348623158e+308
 
 // Converte ângulo de radiano para grau
-double degrees(double radians) {
-    return radians * 180.0 * CGC_INV_PI;
-}
+double degrees(double radians);
 // Converte ângulo de grau para radiano
-double radians(double degrees) {
-    return degrees * CGC_PI / 180.0;
-}
+double radians(double degrees);
+// Retorna valor delimitado por mínimo e máximo
+double clamp(double value, double minimum, double maximum);
 
 #endif

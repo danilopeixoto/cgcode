@@ -1,12 +1,13 @@
 // File:    main.cpp
 // Author:  Danilo Peixoto
-// Date:    02/08/2018
+// Date:    16/08/2018
 
-// Bibliotecas
 #include <iostream>
-#include <Global.h>
+#include <iomanip>
 
 // Testes
 int main(int argc, char ** argv) {
+    std::cout << std::fixed << std::setprecision(5);
+
     return 0;
 }
