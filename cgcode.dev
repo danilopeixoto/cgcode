@@ -4,14 +4,14 @@ Name=cgcode
 Type=1
 Ver=2
 ObjFiles=
-Includes=include/
-Libs=
+Includes=include/;extlib/glfw/include/
+Libs=extlib/glfw/lib/
 PrivateResource=
 ResourceIncludes=
 MakeIncludes=
 Compiler=
 CppCompiler=-std=c++11_@@_
-Linker=
+Linker=-lglfw3_@@_-lopengl32_@@_-lglu32_@@_-lgdi32_@@_
 IsCpp=1
 Icon=
 ExeOutput=bin/
@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000001000000
-UnitCount=7
+UnitCount=15
 
 [VersionInfo]
 Major=1
@@ -71,7 +71,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=src\Vector.cpp
+FileName=src\TriangleMesh.cpp
 CompileCpp=1
 Folder=src
 Compile=1
@@ -91,9 +91,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=include\Global.h
+FileName=src\Utility.cpp
 CompileCpp=1
-Folder=include
+Folder=src
 Compile=1
 Link=1
 Priority=1000
@@ -101,26 +101,6 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit6]
-FileName=include\Matrix.h
-CompileCpp=1
-Folder=include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit7]
-FileName=include\Vector.h
-CompileCpp=1
-Folder=include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit8]
 FileName=src\Vector.cpp
 CompileCpp=1
 Folder=src
@@ -130,17 +110,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit9]
-FileName=include\Color.h
-CompileCpp=1
-Folder=include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit10]
+[Unit7]
 FileName=include\Global.h
 CompileCpp=1
 Folder=include
@@ -150,17 +120,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit11]
-FileName=include\Image.h
-CompileCpp=1
-Folder=include
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit12]
+[Unit8]
 FileName=include\Matrix.h
 CompileCpp=1
 Folder=include
@@ -170,7 +130,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit13]
+[Unit9]
 FileName=include\TriangleMesh.h
 CompileCpp=1
 Folder=include
@@ -180,7 +140,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit14]
+[Unit10]
 FileName=include\Utility.h
 CompileCpp=1
 Folder=include
@@ -190,7 +150,7 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit15]
+[Unit11]
 FileName=include\Vector.h
 CompileCpp=1
 Folder=include
@@ -200,10 +160,50 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit16]
+[Unit12]
 FileName=include\Viewport.h
 CompileCpp=1
 Folder=include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit13]
+FileName=src\Viewport.cpp
+CompileCpp=1
+Folder=src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit14]
+FileName=src\Color.cpp
+CompileCpp=1
+Folder=src
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit15]
+FileName=include\Color.h
+CompileCpp=1
+Folder=include
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit16]
+FileName=src\Viewport.cpp
+CompileCpp=1
+Folder=src
 Compile=1
 Link=1
 Priority=1000
