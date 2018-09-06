@@ -1,6 +1,6 @@
 // File:    Viewport.cpp
 // Author:  Danilo Peixoto
-// Date:    20/08/2018
+// Date:    06/09/2018
 
 #include <Viewport.h>
 #include <TriangleMesh.h>
@@ -9,45 +9,11 @@
 #include <GL/glu.h>
 #include <GLFW/glfw3.h>
 
-Viewport3D * Viewport3D::instance = nullptr;
-
-void Viewport3D::resizeCallback(GLFWwindow * window, int width, int height) {
-    instance->resize(width, height);
-}
-void Viewport3D::keyboardCallback(GLFWwindow * window, int key, int code, int action, int modifier) {
-    instance->keyboard(key, code, action, modifier);
-}
-void Viewport3D::mouseButtonCallback(GLFWwindow * window, int button, int action, int modifier) {
-    instance->mouseButton(button, action, modifier);
-}
-void Viewport3D::cursorCallback(GLFWwindow * window, double x, double y) {
-    instance->cursor(x, y);
-}
-void Viewport3D::scrollCallback(GLFWwindow * window, double x, double y) {
-    instance->scroll(x, y);
-}
-void Viewport3D::closeCallback(GLFWwindow * window) {
-    instance->close();
-}
-
 Viewport3D & Viewport3D::render() {
-    Vector3 yAxis(0, 1.0, 0);
-
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glLoadIdentity();
-    glTranslated(translation.x, translation.y, translation.z);
-    loadDefaultView();
-    glRotated(rotation.x, yAxis.x, yAxis.y, yAxis.z);
-
-    double viewMatrix[16];
-    glGetDoublev(GL_MODELVIEW_MATRIX, viewMatrix);
-
-    Vector3 axis = yAxis.cross(Vector3(viewMatrix[2], viewMatrix[6], viewMatrix[10]));
-    glRotated(rotation.y, axis.x, axis.y, axis.z);
-
-    drawGrid();
-    drawScene();
+    renderSceneViewport();
+    renderAxisViewport();
 
     glfwSwapBuffers(window);
     glfwPollEvents();
@@ -55,14 +21,8 @@ Viewport3D & Viewport3D::render() {
     return *this;
 }
 Viewport3D & Viewport3D::resize(size_t width, size_t height) {
-    glMatrixMode(GL_PROJECTION);
-
-    glViewport(0, 0, width, height);
-
-    glLoadIdentity();
-    gluPerspective(fieldOfView, width / (double)height, nearPlane, farPlane);
-
-    glMatrixMode(GL_MODELVIEW);
+    this->width = width;
+    this->height = height;
 
     return *this;
 }
@@ -127,6 +87,58 @@ Viewport3D & Viewport3D::cursor(double x, double y) {
 Viewport3D & Viewport3D::scroll(double x, double y) {
     translation.z += y * sensitivity * 5.0;
     return *this;
+}
+
+Viewport3D & Viewport3D::renderSceneViewport() {
+    glViewport(0, 0, width, height);
+
+    glMatrixMode(GL_PROJECTION);
+
+    glLoadIdentity();
+    gluPerspective(fieldOfView, width / (double)height, nearPlane, farPlane);
+
+    glMatrixMode(GL_MODELVIEW);
+
+    Vector3 yAxis(0, 1.0, 0);
+
+    glLoadIdentity();
+    glTranslated(translation.x, translation.y, translation.z);
+    loadDefaultView();
+    glRotated(rotation.x, yAxis.x, yAxis.y, yAxis.z);
+
+    double viewMatrix[16];
+    glGetDoublev(GL_MODELVIEW_MATRIX, viewMatrix);
+
+    Vector3 axis = yAxis.cross(Vector3(viewMatrix[2], viewMatrix[6], viewMatrix[10]));
+    glRotated(rotation.y, axis.x, axis.y, axis.z);
+
+    drawGrid();
+    drawScene();
+}
+Viewport3D & Viewport3D::renderAxisViewport() {
+    glViewport(0, 0, 80, 80);
+
+    glMatrixMode(GL_PROJECTION);
+
+    glLoadIdentity();
+    glOrtho(-1.5, 1.5, -1.5, 1.5, -50, 50);
+
+    glMatrixMode(GL_MODELVIEW);
+
+    Vector3 yAxis(0, 1.0, 0);
+
+    glLoadIdentity();
+    glTranslated(0, 0, 0);
+    loadDefaultView();
+    glRotated(rotation.x, yAxis.x, yAxis.y, yAxis.z);
+
+    double viewMatrix[16];
+    glGetDoublev(GL_MODELVIEW_MATRIX, viewMatrix);
+
+    Vector3 axis = yAxis.cross(Vector3(viewMatrix[2], viewMatrix[6], viewMatrix[10]));
+    glRotated(rotation.y, axis.x, axis.y, axis.z);
+
+    drawAxis();
 }
 
 Viewport3D & Viewport3D::loadDefaultView() {
@@ -206,6 +218,31 @@ Viewport3D & Viewport3D::loadScene() {
 
     return *this;
 }
+Viewport3D & Viewport3D::drawAxis() {
+    glDisable(GL_DEPTH_TEST);
+    glLineWidth(2.0);
+
+    glBegin(GL_LINES);
+
+    glColor4d(1.0, 0, 0, 1.0);
+    glVertex3d(0, 0, 0);
+    glVertex3d(1.0, 0, 0);
+
+    glColor4d(0, 1.0, 0, 1.0);
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, 1.0, 0);
+
+    glColor4d(0, 0, 1.0, 1.0);
+    glVertex3d(0, 0, 0);
+    glVertex3d(0, 0, 1.0);
+
+    glEnd();
+    glFlush();
+
+    glEnable(GL_DEPTH_TEST);
+
+    return *this;
+}
 Viewport3D & Viewport3D::drawGrid() {
     if (grid) {
         glDisable(GL_LIGHTING);
@@ -267,8 +304,6 @@ Viewport3D & Viewport3D::drawScene() {
 }
 
 Viewport3D::Viewport3D() {
-    instance = this;
-
     window = nullptr;
     index = 0;
 
@@ -428,6 +463,8 @@ Viewport3D & Viewport3D::show() {
     window = glfwCreateWindow(width, height, "Viewport 3D", nullptr, nullptr);
 
     if (window) {
+        glfwSetWindowUserPointer(window, this);
+
         GLFWmonitor * monitor = glfwGetPrimaryMonitor();
         const GLFWvidmode * mode = glfwGetVideoMode(monitor);
 
@@ -439,12 +476,36 @@ Viewport3D & Viewport3D::show() {
         glfwMakeContextCurrent(window);
         glfwSwapInterval(1);
 
-        glfwSetWindowSizeCallback(window, resizeCallback);
-        glfwSetKeyCallback(window, keyboardCallback);
-        glfwSetMouseButtonCallback(window, mouseButtonCallback);
-        glfwSetCursorPosCallback(window, cursorCallback);
-        glfwSetScrollCallback(window, scrollCallback);
-        glfwSetWindowCloseCallback(window, closeCallback);
+        glfwSetWindowSizeCallback(window,
+            [](GLFWwindow * window, int width, int height) {
+            Viewport3D * viewport = (Viewport3D *)glfwGetWindowUserPointer(window);
+            viewport->resize(width, height);
+        });
+        glfwSetKeyCallback(window,
+            [](GLFWwindow * window, int key, int code, int action, int modifier) {
+            Viewport3D * viewport = (Viewport3D *)glfwGetWindowUserPointer(window);
+            viewport->keyboard(key, code, action, modifier);
+        });
+        glfwSetMouseButtonCallback(window,
+            [](GLFWwindow * window, int button, int action, int modifier) {
+            Viewport3D * viewport = (Viewport3D *)glfwGetWindowUserPointer(window);
+            viewport->mouseButton(button, action, modifier);
+        });
+        glfwSetCursorPosCallback(window,
+            [](GLFWwindow * window, double x, double y) {
+            Viewport3D * viewport = (Viewport3D *)glfwGetWindowUserPointer(window);
+            viewport->cursor(x, y);
+        });
+        glfwSetScrollCallback(window,
+            [](GLFWwindow * window, double x, double y) {
+            Viewport3D * viewport = (Viewport3D *)glfwGetWindowUserPointer(window);
+            viewport->scroll(x, y);
+        });
+        glfwSetWindowCloseCallback(window,
+            [](GLFWwindow * window) {
+            Viewport3D * viewport = (Viewport3D *)glfwGetWindowUserPointer(window);
+            viewport->close();
+        });
 
         glEnable(GL_DEPTH_TEST);
         glShadeModel(GL_SMOOTH);

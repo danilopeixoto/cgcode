@@ -12,6 +12,7 @@
 // Declaração de tipo incompleto no cabeçalho evita dependência cíclica de arquivos
 class Vector2;
 class Vector3;
+class Matrix4;
 
 // Geometria representada por triângulos (vértices em ordem anti-horária)
 class TriangleMesh {
@@ -120,6 +121,9 @@ public:
         const std::vector<size_t> & vertexIndices,
         const std::vector<size_t> & normalIndices,
         const std::vector<size_t> & textureIndices);
+
+    // Transforma geometria utilizando matriz 4x4
+    TriangleMesh & transform(const Matrix4 & transformation);
 };
 
 #endif

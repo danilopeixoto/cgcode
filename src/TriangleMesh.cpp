@@ -4,6 +4,7 @@
 
 #include <TriangleMesh.h>
 #include <Vector.h>
+#include <Matrix.h>
 
 TriangleMesh::TriangleMesh() {}
 TriangleMesh::TriangleMesh(const TriangleMesh & triangleMesh) {
@@ -193,6 +194,22 @@ TriangleMesh & TriangleMesh::create(
     this->vertexIndices = vertexIndices;
     this->normalIndices = normalIndices;
     this->textureIndices = textureIndices;
+
+    return *this;
+}
+
+TriangleMesh & TriangleMesh::transform(const Matrix4 & transformation) {
+    for (size_t i = 0; i < getVertexCount(); i++)
+        vertices[i] *= transformation;
+
+    if (hasNormals()) {
+        Matrix4 normalTransformation = transformation.inverse().transpose();
+
+        for (size_t i = 0; i < getNormalCount(); i++) {
+            normals[i] *= normalTransformation;
+            normals[i].normalize();
+        }
+    }
 
     return *this;
 }

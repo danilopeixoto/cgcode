@@ -1,6 +1,6 @@
 // File:    Viewport.h
 // Author:  Danilo Peixoto
-// Date:    20/08/2018
+// Date:    06/09/2018
 
 // Evita redefinição de símbolos do arquivo de cabeçalho (caso já tenha sido incluído)
 #ifndef CGC_VIEWPORT_H
@@ -19,22 +19,6 @@ class GLFWwindow;
 // Implementação de "viewport" 3D utilizando OpenGL e GLFW
 class Viewport3D {
 private:
-    // Instância atual da classe "Viewport3D"
-    static Viewport3D * instance;
-
-    // Rotina de ajuste de tamanho da janela pertencente a instância atual
-    static void resizeCallback(GLFWwindow * window, int width, int height);
-    // Rotina de evento do teclado pertencente a instância atual
-    static void keyboardCallback(GLFWwindow * window, int key, int code, int action, int modifier);
-    // Rotina de evento de botão do mouse pertencente a instância atual
-    static void mouseButtonCallback(GLFWwindow * window, int button, int action, int modifier);
-    // Rotina de evento de posição do cursor pertencente a instância atual
-    static void cursorCallback(GLFWwindow * window, double x, double y);
-    // Rotina de evento de botão deslizante do mouse pertencente a instância atual
-    static void scrollCallback(GLFWwindow * window, double x, double y);
-    // Rotina de fechamento da janela pertencente a instância atual
-    static void closeCallback(GLFWwindow * window);
-
     size_t width; // Resolução horizontal da janela
     size_t height; // Resolução vertical da janela
     size_t gridSize; // Tamanho da grade principal
@@ -76,10 +60,17 @@ private:
     // Rotina de evento de botão deslizante do mouse
     Viewport3D & scroll(double x, double y);
 
+    // Renderiza "viewport" da cena
+    Viewport3D & renderSceneViewport();
+    // Renderiza "viewport" dos eixos do sistema cartesiano
+    Viewport3D & renderAxisViewport();
+
     // Carrega matriz de transformação de visão padrão
     Viewport3D & loadDefaultView();
     // Carrega cena geométrica
     Viewport3D & loadScene();
+    // Desenha eixos do sistema cartesiano
+    Viewport3D & drawAxis();
     // Desenha grade principal
     Viewport3D & drawGrid();
     // Desenha cena geométrica
